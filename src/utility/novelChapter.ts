@@ -66,7 +66,7 @@ export const saveChapterToDb = async (data: ChapterType): Promise<FuntionRespons
 };
 
 const novelChapterScraper = async (novel: string, chapter: number, stopAfter: number, novelId: string): Promise<FuntionResponse> => {
-  const browser = await puppeteer.launch(head);
+  const browser = await puppeteer.launch(headless);
   const page = await browser.newPage();
   await page.setViewport({ width: 800, height: 1200, isLandscape: false, isMobile: false, hasTouch: false, deviceScaleFactor: 1 });
 

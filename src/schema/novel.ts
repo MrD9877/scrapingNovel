@@ -35,7 +35,7 @@ const novelSchema = new Schema({
     type: Schema.Types.String,
   },
   lastUpdate: {
-    type: Schema.Types.Date,
+    type: Schema.Types.String,
   },
   cover: {
     type: Schema.Types.String,

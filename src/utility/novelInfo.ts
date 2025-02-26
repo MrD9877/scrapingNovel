@@ -1,4 +1,3 @@
-import { writeFile } from "fs";
 import { HTTPResponse, Page } from "puppeteer";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
@@ -162,7 +161,10 @@ const novelInfoScrapper = async (novel: string, novelId: string) => {
   if (!name) throw Error("no name found");
   const dublicate = await checkNovelDb(name);
 
-  if (!dublicate.acknowledge) return dublicate;
+  if (!dublicate.acknowledge) {
+    await browser.close();
+    return dublicate;
+  }
 
   await uploadImage(images[0], imageId);
 

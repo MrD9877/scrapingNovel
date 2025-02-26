@@ -4,18 +4,25 @@ import novelInfoScrapper from "./utility/novelInfo";
 import novelChapterScraper from "./utility/novelChapter";
 import { generateRandom } from "./utility/random";
 import mongoose from "mongoose";
+import { deleteImages } from "./utility/awsBucket";
+import novelGenreScrapper from "./utility/genre";
 
 dotenv.config();
 
 const searchnovelCLI = process.argv.length >= 3 ? process.argv[2] : "comprehension-ability-creating-and-teaching-the-dao-in-various-worlds";
 const startChapterCLI = process.argv.length >= 4 ? process.argv[3] : "1";
 const stopChapterCLI = process.argv.length >= 5 ? process.argv[4] : "1";
-(async () => {
+
+async function connetMongo() {
   try {
     await mongoose.connect("mongodb+srv://dhuruvbansl99:Shubham123@cluster0.jos6q.mongodb.net/NovelStore");
   } catch (err) {
     throw err;
   }
+}
+
+const getNovel = async () => {
+  await connetMongo();
   let novelId = generateRandom(32);
   try {
     const resp = await novelInfoScrapper(searchnovelCLI, novelId);
@@ -35,4 +42,16 @@ const stopChapterCLI = process.argv.length >= 5 ? process.argv[4] : "1";
   } finally {
     await mongoose.connection.close();
   }
-})();
+};
+
+const getGenre = async () => {
+  try {
+    await connetMongo();
+    await novelGenreScrapper();
+  } catch {
+  } finally {
+    await mongoose.connection.close();
+  }
+};
+
+getNovel();

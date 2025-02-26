@@ -1,5 +1,18 @@
 # JEST
 
+**_Important_**
+when runnning jest
+
+```
+  "type": "module",
+```
+
+when running projects remove:-
+
+```
+  "type": "module",
+```
+
 ```
 npm install --save-dev jest ts-jest @types/jest
 
